@@ -2,7 +2,7 @@ package com.mountblue;
 
 import java.util.*;
 
-public class Main implements Constans{
+public class Main implements Constants {
     public static void main(String[] args) throws Exception {
 
         Util u=new Util();

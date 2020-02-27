@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Util implements Constans{
+public class Util implements Constants {
 
     public BufferedReader readFile(String path) throws Exception {
         FileReader fileReader=new FileReader(path);

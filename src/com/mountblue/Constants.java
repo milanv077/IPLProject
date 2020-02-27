@@ -1,6 +1,6 @@
 package com.mountblue;
 
-public interface Constans {
+public interface Constants {
     int ID_INDEX = 0;
     int SEASON_INDEX = 1;
     int CITY_INDEX = 2;
