@@ -1,6 +1,7 @@
 package com.mountblue;
 
 import java.util.*;
+import static com.mountblue.Constants.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
