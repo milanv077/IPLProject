@@ -3,8 +3,9 @@ package com.mountblue;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import static com.mountblue.Constants.*;
 
-public class Util implements Constants {
+public class Util {
 
     public BufferedReader readFile(String path) throws Exception {
         FileReader fileReader=new FileReader(path);
@@ -27,7 +28,7 @@ public class Util implements Constants {
             match.setTossWinner(value[TOSS_WINNER_INDEX]);
             match.setTossDecision(value[TOSS_DECISION_INDEX]);
             match.setResult(value[RESULT_INDEX]);
-            match.setDlApplied(Integer.parseInt(value[DL_APLLIED].toString().trim()));
+            match.setDlApplied(Integer.parseInt(value[DL_APLLIED_INDEX].toString().trim()));
             match.setWinner(value[WINNER_INDEX]);
             match.setWinByRuns(Integer.parseInt(value[WIN_BY_RUNS_INDEX].toString().trim()));
             match.setWinByWickets(Integer.parseInt(value[WIN_BY_WICKETS_INDEX].toString().trim()));
@@ -48,7 +49,7 @@ public class Util implements Constants {
             String[] value = line.replaceAll(",",", ").split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
             Delivery delivery = new Delivery();
 
-            delivery.setMatchId(Integer.parseInt(value[MATCH_ID].toString().trim()));
+            delivery.setMatchId(Integer.parseInt(value[MATCH_ID_INDEX].toString().trim()));
             delivery.setInning(Integer.parseInt(value[INNING_INDEX].toString().trim()));
             delivery.setBattingTeam(value[BATTING_TEAM_INDEX]);
             delivery.setBowlingTeam(value[BOWLING_TEAM_INDEX]);
