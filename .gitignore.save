@@ -1,0 +1,4 @@
+*.class
+*.log
+*.idea
+/IdeaProject.kotlin_module

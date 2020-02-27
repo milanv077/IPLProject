@@ -1,4 +1,4 @@
-package com.ipl;
+package com.mountblue;
 
 public class Match {
     private int id;

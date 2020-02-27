@@ -1,51 +1,13 @@
-package com.ipl;
+package com.mountblue;
+
+import kotlin.reflect.jvm.internal.impl.load.java.Constant;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Util {
+public class Util implements Constans{
 
-
-    private static final int ID_INDEX = 0;
-    private static final int SESSION_INDEX = 1;
-    private static final int CITY_INDEX = 2;
-    private static final int DATE_INDEX = 3;
-    private static final int TEAM1_INDEX =4 ;
-    private static final int TEAM2_INDEX = 5;
-    private static final int TOSS_WINNER_INDEX = 6;
-    private static final int TOSS_DECISION_INDEX = 7;
-    private static final int RESULT_INDEX =8 ;
-    private static final int DL_APLLIED = 9;
-    private static final int WINNER_INDEX = 10;
-    private static final int WIN_BY_RUNS_INDEX = 11;
-    private static final int WIN_BY_WICKETS_INDEX = 12;
-    private static final int PLAYER_OF_MATCH_INDEX = 13;
-    private static final int VENUE_INDEX = 14;
-    private static final int UMPIRE1_INDEX = 15;
-    private static final int UMPIRE2_INDEX = 16;
-
-    private static final int MATCH_ID = 0;
-    private static final int INNING_INDEX = 1;
-    private static final int BATTING_TEAM_INDEX = 2;
-    private static final int BOWLING_TEAM_INDEX =3 ;
-    private static final int OVER_INDEX = 4;
-    private static final int BALL_INDEX = 5;
-    private static final int BATSMAN_INDEX = 6;
-    private static final int NON_STRIKER_INDEX = 7;
-    private static final int BOWLER_INDEX = 8;
-    private static final int IS_SUPER_OVER_INDEX = 9;
-    private static final int WIDE_RUNS = 10;
-    private static final int BYE_RUN_INDEX = 11;
-    private static final int LEGBYE_INDEX = 12;
-    private static final int NOBALL_INDEX = 13;
-    private static final int PENALTY_INDEX = 14;
-    private static final int BATSMAN_RUNS_INDEX = 15;
-    private static final int EXTRA_RUNS_INDEX = 16;
-    private static final int TOTAL_RUNS_INDEX = 17;
-    private static final int PLAYER_DISMISSED_INDEX = 18;
-    private static final int DISMISSAL_KIND_INDEX = 19;
-    private static final int FIELDER_INDEX = 20;
 
     public BufferedReader readFile(String path) throws Exception {
         FileReader fileReader=new FileReader(path);
@@ -53,15 +15,14 @@ public class Util {
         return bufferedReader;
     }
     List<Match> getMatchesDatabase() throws Exception {
-        String path="matches.csv";
-        BufferedReader bufferedReader=readFile(path);
+        BufferedReader bufferedReader=readFile(PATH_OF_MATCHES);
         String line=bufferedReader.readLine();
         List<Match> listOfMatch=new ArrayList<Match>();
         while((line=bufferedReader.readLine())!=null){
             String[] value = line.replaceAll(",",", ").split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
             Match match=new Match();
             match.setId(Integer.parseInt(value[ID_INDEX].toString().trim()));
-            match.setSeason(Integer.parseInt(value[SESSION_INDEX].toString().trim()));
+            match.setSeason(Integer.parseInt(value[SEASON_INDEX].toString().trim()));
             match.setCity(value[CITY_INDEX]);
             match.setDate((value[DATE_INDEX].toString().trim()));
             match.setTeam1(value[TEAM1_INDEX]);
@@ -80,13 +41,10 @@ public class Util {
 
             listOfMatch.add(match);
         }
-
         return listOfMatch;
     }
     List<Delivery> getDeliveriesDatabase() throws Exception {
-
-        String path = "deliveries.csv";
-        BufferedReader bufferedReader = readFile(path);
+        BufferedReader bufferedReader = readFile(PATH_OF_DELIVERIES);
         String line = bufferedReader.readLine();
         List<Delivery> listOfDelivery = new ArrayList<Delivery>();
         while ((line = bufferedReader.readLine()) != null) {

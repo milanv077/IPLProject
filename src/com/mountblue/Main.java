@@ -1,29 +1,27 @@
-package com.ipl;
+package com.mountblue;
 
 import java.util.*;
 
-public class Main {
+public class Main implements Constans{
     public static void main(String[] args) throws Exception {
 
-    Util u=new Util();
-    List<Match> listOfMatch=u.getMatchesDatabase();
-    List<Delivery> listOfDeliveries=u.getDeliveriesDatabase();
+        Util u=new Util();
+        List<Match> listOfMatch=u.getMatchesDatabase();
+        List<Delivery> listOfDeliveries=u.getDeliveriesDatabase();
 
-    findNoOfMatchesPlayedPerYear(listOfMatch);
-    findMatchesWonByTeam(listOfMatch);
-    findExtraRunByEachTeam(listOfMatch,listOfDeliveries);
-    findEconomicalBowler(listOfDeliveries,listOfMatch);
-
+        findNoOfMatchesPlayedPerYear(listOfMatch);
+        findMatchesWonByTeam(listOfMatch);
+        findExtraRunByEachTeam(listOfMatch,listOfDeliveries);
+        findEconomicalBowler(listOfDeliveries,listOfMatch);
     }
-
     private static void findEconomicalBowler(List<Delivery> listOfDeliveries, List<Match> listOfMatch) {
         Map<String, Integer> overCountOfBowler = new LinkedHashMap<String, Integer>();
         Map<String, Integer> totalRunGivenByBowler = new LinkedHashMap<String, Integer>();
         Map<String, Double> averageOfEachBowler = new LinkedHashMap<String, Double>();
 
-        int season = 2015;
+
         for (int i = 0; i < listOfMatch.size(); i++) {
-            if (listOfMatch.get(i).getSeason() == season) {
+            if (listOfMatch.get(i).getSeason() == SEASON_2015) {
                 String prev = "";
                 String current = "";
                 for (int j = 0; j < listOfDeliveries.size(); j++) {
@@ -33,9 +31,10 @@ public class Main {
                         if (!prev.equals(current)) {
                             prev = current;
                             if (!overCountOfBowler.containsKey(current)) {
-                                overCountOfBowler.put(current, 1);
+                                overCountOfBowler.put(current, COUNT);
+
                             } else {
-                                overCountOfBowler.put(current, overCountOfBowler.get(current) + 1);
+                                overCountOfBowler.put(current, overCountOfBowler.get(current) + COUNT);
                             }
                         }
                         if (!totalRunGivenByBowler.containsKey(current)) {
@@ -49,7 +48,9 @@ public class Main {
                     }
                 }
             }
+
         }
+
         for(Map.Entry<String, Integer> overCount:overCountOfBowler.entrySet()) {
             double averageOFBowler=(double)totalRunGivenByBowler.get(overCount.getKey())/overCountOfBowler.get(overCount.getKey());
             averageOfEachBowler.put(overCount.getKey(),averageOFBowler);
@@ -66,25 +67,22 @@ public class Main {
         }
         System.out.println("Top economical bowler name is:"+bowlerName+" and his average is:"+minAverage);
     }
-
     private static void findMatchesWonByTeam(List<Match> listOfMatch) {
         Map<String,Integer> matchesWonByTeam=new LinkedHashMap<String,Integer>();
         for(int i=0;i<listOfMatch.size();i++) {
             String winnerTeam=listOfMatch.get(i).getWinner();
             if(!matchesWonByTeam.containsKey(winnerTeam)) {
-                matchesWonByTeam.put(winnerTeam,1);
+                matchesWonByTeam.put(winnerTeam,COUNT);
             } else {
-                matchesWonByTeam.put(winnerTeam,matchesWonByTeam.get(winnerTeam)+1);
+                matchesWonByTeam.put(winnerTeam,matchesWonByTeam.get(winnerTeam)+COUNT);
             }
         }
         System.out.println(matchesWonByTeam);
     }
-
     private static void findExtraRunByEachTeam(List<Match> listOfMatch, List<Delivery> listOfDeliveries) {
         Map<String, Integer> runGivenByTeamIn2016 = new LinkedHashMap<String, Integer>();
-        int season = 2016;
         for (int i = 0; i < listOfMatch.size(); i++) {
-            if (listOfMatch.get(i).getSeason() == season) {
+            if (listOfMatch.get(i).getSeason() == SEASON_2016) {
                 for (int j = 0; j < listOfDeliveries.size(); j++) {
                     if (listOfDeliveries.get(j).getMatchId() == listOfMatch.get(i).getId()) {
                         String bowlingTeam = listOfDeliveries.get(j).getBowlingTeam();
@@ -106,9 +104,9 @@ public class Main {
         for(int i=0;i<listOfMatch.size();i++) {
             int year=listOfMatch.get(i).getSeason();
              if(!matchesPlayedPerYear.containsKey(year)) {
-                    matchesPlayedPerYear.put(year,1);
+                    matchesPlayedPerYear.put(year,COUNT);
              } else {
-                 matchesPlayedPerYear.put(year,matchesPlayedPerYear.get(year)+1);
+                 matchesPlayedPerYear.put(year,matchesPlayedPerYear.get(year)+COUNT);
              }
         }
         System.out.println(matchesPlayedPerYear);
