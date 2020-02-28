@@ -4,22 +4,25 @@ import java.util.*;
 import static com.mountblue.Constants.*;
 
 public class Main {
+
+    static List<Match> listOfMatch;
+    static List<Delivery> listOfDeliveries;
     public static void main(String[] args) throws Exception {
 
         Util u=new Util();
-        List<Match> listOfMatch=u.getMatchesDatabase();
-        List<Delivery> listOfDeliveries=u.getDeliveriesDatabase();
+        listOfMatch=u.getMatchesDatabase();
+        listOfDeliveries = u.getDeliveriesDatabase();
 
-        findNoOfMatchesPlayedPerYear(listOfMatch);
-        findMatchesWonByTeam(listOfMatch);
-        findExtraRunByEachTeam(listOfMatch,listOfDeliveries);
-        findEconomicalBowler(listOfDeliveries,listOfMatch);
+        System.out.println(findNoOfMatchesPlayedPerYear(listOfMatch));
+        System.out.println(findMatchesWonByTeam(listOfMatch));
+        System.out.println(findExtraRunByEachTeam(listOfMatch,listOfDeliveries));
+        System.out.println(findEconomicalBowler(listOfDeliveries,listOfMatch));
     }
-    private static void findEconomicalBowler(List<Delivery> listOfDeliveries, List<Match> listOfMatch) {
+     static Map<String, Double> findEconomicalBowler(List<Delivery> listOfDeliveries, List<Match> listOfMatch) {
         Map<String, Integer> overCountOfBowler = new LinkedHashMap<String, Integer>();
         Map<String, Integer> totalRunGivenByBowler = new LinkedHashMap<String, Integer>();
         Map<String, Double> averageOfEachBowler = new LinkedHashMap<String, Double>();
-
+        Map<String, Double> topEconomicalBowler = new LinkedHashMap<String, Double>();
 
         for (int i = 0; i < listOfMatch.size(); i++) {
             if (listOfMatch.get(i).getSeason() == SEASON_2015) {
@@ -49,7 +52,6 @@ public class Main {
                     }
                 }
             }
-
         }
 
         for(Map.Entry<String, Integer> overCount:overCountOfBowler.entrySet()) {
@@ -66,9 +68,10 @@ public class Main {
                 bowlerName=averageOfBowler.getKey();
             }
         }
-        System.out.println("Top economical bowler name is:"+bowlerName+" and his average is:"+minAverage);
+        topEconomicalBowler.put(bowlerName,minAverage);
+        return topEconomicalBowler;
     }
-    private static void findMatchesWonByTeam(List<Match> listOfMatch) {
+     static Map<String, Integer> findMatchesWonByTeam(List<Match> listOfMatch) {
         Map<String,Integer> matchesWonByTeam=new LinkedHashMap<String,Integer>();
         for(int i=0;i<listOfMatch.size();i++) {
             String winnerTeam=listOfMatch.get(i).getWinner();
@@ -78,9 +81,10 @@ public class Main {
                 matchesWonByTeam.put(winnerTeam,matchesWonByTeam.get(winnerTeam)+COUNT);
             }
         }
-        System.out.println(matchesWonByTeam);
+
+        return matchesWonByTeam;
     }
-    private static void findExtraRunByEachTeam(List<Match> listOfMatch, List<Delivery> listOfDeliveries) {
+     static Map<String, Integer> findExtraRunByEachTeam(List<Match> listOfMatch, List<Delivery> listOfDeliveries) {
         Map<String, Integer> runGivenByTeamIn2016 = new LinkedHashMap<String, Integer>();
         for (int i = 0; i < listOfMatch.size(); i++) {
             if (listOfMatch.get(i).getSeason() == SEASON_2016) {
@@ -98,9 +102,10 @@ public class Main {
                 }
             }
         }
-        System.out.println(runGivenByTeamIn2016);
+
+        return runGivenByTeamIn2016;
     }
-    private static void findNoOfMatchesPlayedPerYear(List<Match> listOfMatch) {
+     static Map<Integer, Integer> findNoOfMatchesPlayedPerYear(List<Match> listOfMatch) {
         Map<Integer,Integer>  matchesPlayedPerYear=new LinkedHashMap<Integer, Integer>();
         for(int i=0;i<listOfMatch.size();i++) {
             int year=listOfMatch.get(i).getSeason();
@@ -110,7 +115,7 @@ public class Main {
                  matchesPlayedPerYear.put(year,matchesPlayedPerYear.get(year)+COUNT);
              }
         }
-        System.out.println(matchesPlayedPerYear);
+        return matchesPlayedPerYear;
     }
 
 }
